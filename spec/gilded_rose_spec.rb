@@ -8,16 +8,25 @@ RSpec.describe Item do
       item = Item.new(name: "Normal Item", sell_in: 5, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 4, quality: 9)
+    end
+
+    it "very close to sell date" do
+      item = Item.new(name: "Normal Item", sell_in: 1, quality: 10)
+      gilded_rose = GildedRose.new([item])
+
+      gilded_rose.update_items
+
+      expect(item).to have_attributes(sell_in: 0, quality: 9)
     end
 
     it "on sell date" do
       item = Item.new(name: "Normal Item", sell_in: 0, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -1, quality: 8)
     end
@@ -26,7 +35,7 @@ RSpec.describe Item do
       item = Item.new(name: "Normal Item", sell_in: -10, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -11, quality: 8)
     end
@@ -35,7 +44,7 @@ RSpec.describe Item do
       item = Item.new(name: "Normal Item", sell_in: 5, quality: 0)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 4, quality: 0)
     end
@@ -46,7 +55,7 @@ RSpec.describe Item do
       item = Item.new(name: "Aged Brie", sell_in: 5, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 4, quality: 11)
     end
@@ -55,7 +64,7 @@ RSpec.describe Item do
       item = Item.new(name: "Aged Brie", sell_in: 5, quality: 50)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 4, quality: 50)
     end
@@ -64,7 +73,7 @@ RSpec.describe Item do
       item = Item.new(name: "Aged Brie", sell_in: 0, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -1, quality: 12)
     end
@@ -73,7 +82,7 @@ RSpec.describe Item do
       item = Item.new(name: "Aged Brie", sell_in: 0, quality: 49)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -1, quality: 50)
     end
@@ -82,7 +91,7 @@ RSpec.describe Item do
       item = Item.new(name: "Aged Brie", sell_in: 0, quality: 50)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -1, quality: 50)
     end
@@ -91,7 +100,7 @@ RSpec.describe Item do
       item = Item.new(name: "Aged Brie", sell_in: -10, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -11, quality: 12)
     end
@@ -100,7 +109,7 @@ RSpec.describe Item do
       item = Item.new(name: "Aged Brie", sell_in: -10, quality: 50)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -11, quality: 50)
     end
@@ -111,7 +120,7 @@ RSpec.describe Item do
       item = Item.new(name: "Sulfuras, Hand of Ragnaros", sell_in: 5, quality: 80)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 5, quality: 80)
     end
@@ -120,7 +129,7 @@ RSpec.describe Item do
       item = Item.new(name: "Sulfuras, Hand of Ragnaros", sell_in: 0, quality: 80)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 0, quality: 80)
     end
@@ -129,7 +138,7 @@ RSpec.describe Item do
       item = Item.new(name: "Sulfuras, Hand of Ragnaros", sell_in: -10, quality: 80)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -10, quality: 80)
     end
@@ -140,7 +149,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 11, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 10, quality: 11)
     end
@@ -149,7 +158,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 11, quality: 50)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 10, quality: 50)
     end
@@ -158,7 +167,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 10, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 9, quality: 12)
     end
@@ -167,7 +176,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 10, quality: 50)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 9, quality: 50)
     end
@@ -176,7 +185,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 6, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 5, quality: 12)
     end
@@ -185,7 +194,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 6, quality: 50)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 5, quality: 50)
     end
@@ -194,7 +203,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 5, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 4, quality: 13)
     end
@@ -203,7 +212,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 5, quality: 50)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 4, quality: 50)
     end
@@ -212,7 +221,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 1, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 0, quality: 13)
     end
@@ -221,7 +230,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 1, quality: 50)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 0, quality: 50)
     end
@@ -230,7 +239,7 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: 0, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -1, quality: 0)
     end
@@ -239,63 +248,63 @@ RSpec.describe Item do
       item = Item.new(name: "Backstage passes to a TAFKAL80ETC concert", sell_in: -10, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -11, quality: 0)
     end
   end
 
   context "Conjured Mana" do
-    xit "before sell date" do
+    it "before sell date" do
       item = Item.new(name: "Conjured Mana Cake", sell_in: 5, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 4, quality: 8)
     end
 
-    xit "before sell date at zero quality" do
+    it "before sell date at zero quality" do
       item = Item.new(name: "Conjured Mana Cake", sell_in: 5, quality: 0)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: 4, quality: 0)
     end
 
-    xit "on sell date" do
+    it "on sell date" do
       item = Item.new(name: "Conjured Mana Cake", sell_in: 0, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -1, quality: 6)
     end
 
-    xit "on sell date at zero quality" do
+    it "on sell date at zero quality" do
       item = Item.new(name: "Conjured Mana Cake", sell_in: 0, quality: 0)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -1, quality: 0)
     end
 
-    xit "after sell date" do
+    it "after sell date" do
       item = Item.new(name: "Conjured Mana Cake", sell_in: -10, quality: 10)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -11, quality: 6)
     end
 
-    xit "after sell date at zero quality" do
+    it "after sell date at zero quality" do
       item = Item.new(name: "Conjured Mana Cake", sell_in: -10, quality: 0)
       gilded_rose = GildedRose.new([item])
 
-      gilded_rose.update_quality
+      gilded_rose.update_items
 
       expect(item).to have_attributes(sell_in: -11, quality: 0)
     end
