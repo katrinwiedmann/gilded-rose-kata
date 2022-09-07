@@ -1,7 +1,5 @@
 class GildedRose
 
-  DEGRADATION_VALUE = 1
-  EXPIRED_DEGRADATION_FACTOR = 2
   MAX_QUALITY = 50
   MIN_QUALITY = 0
 
@@ -32,14 +30,14 @@ class GildedRose
   end
 
   def update_quality_of_aged_brie(item)
-    if item.quality + DEGRADATION_VALUE > MAX_QUALITY
+    if item.quality >= MAX_QUALITY
       return
     end
 
-    if expired?(item) && item.quality <= MAX_QUALITY - EXPIRED_DEGRADATION_FACTOR * DEGRADATION_VALUE
-      item.quality = item.quality + EXPIRED_DEGRADATION_FACTOR * DEGRADATION_VALUE
+    if expired?(item)
+      increase_quality_by(2, item)
     else
-      item.quality = item.quality + DEGRADATION_VALUE
+      increase_quality_by(1, item)
     end
   end
 
@@ -48,12 +46,12 @@ class GildedRose
       return
     end
 
-    if item.sell_in < 5 && item.quality <= MAX_QUALITY - 3
-      item.quality = item.quality + 3
-    elsif item.sell_in < 10 && item.quality <= MAX_QUALITY - 2
-      item.quality = item.quality + 2
+    if item.sell_in < 5
+      increase_quality_by(3, item)
+    elsif item.sell_in < 10
+      increase_quality_by(2, item)
     else
-      item.quality = item.quality + 1
+      increase_quality_by(1, item)
     end
 
     if expired?(item)
@@ -62,26 +60,44 @@ class GildedRose
   end
 
   def update_quality_of_normal_item(item)
-    if item.quality - DEGRADATION_VALUE <= MIN_QUALITY
+    if item.quality <= MIN_QUALITY
       return
     end
 
     if expired?(item)
-      item.quality = item.quality - EXPIRED_DEGRADATION_FACTOR * DEGRADATION_VALUE
+      decrease_quality_by(2, item)
     else
-      item.quality = item.quality - DEGRADATION_VALUE
+      decrease_quality_by(1, item)
     end
   end
 
   def update_quality_of_conjured_item(item)
-    if item.quality - DEGRADATION_VALUE < MIN_QUALITY
+    if item.quality <= MIN_QUALITY
       return
     end
 
     if expired?(item)
-      item.quality = item.quality - 2 * EXPIRED_DEGRADATION_FACTOR * DEGRADATION_VALUE
+      decrease_quality_by(4, item)
     else
-      item.quality = item.quality - EXPIRED_DEGRADATION_FACTOR * DEGRADATION_VALUE
+      decrease_quality_by(2, item)
+    end
+  end
+
+  def decrease_quality_by(value, item)
+    max_quality_to_decrease = item.quality - MIN_QUALITY
+    if max_quality_to_decrease >= value
+      item.quality = item.quality - value
+    else
+      item.quality = item.quality - max_quality_to_decrease
+    end
+  end
+
+  def increase_quality_by(value, item)
+    max_quality_to_increase = MAX_QUALITY - item.quality
+    if max_quality_to_increase >= value
+      item.quality = item.quality + value
+    else
+      item.quality = item.quality + max_quality_to_increase
     end
   end
 

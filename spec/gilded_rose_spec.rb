@@ -308,5 +308,14 @@ RSpec.describe Item do
 
       expect(item).to have_attributes(sell_in: -11, quality: 0)
     end
+
+    it "after sell date near zero quality" do
+      item = Item.new(name: "Conjured Mana Cake", sell_in: -10, quality: 3)
+      gilded_rose = GildedRose.new([item])
+
+      gilded_rose.update_items
+
+      expect(item).to have_attributes(sell_in: -11, quality: 0)
+    end
   end
 end
